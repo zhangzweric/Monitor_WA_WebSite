@@ -1,0 +1,53 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="IDCards.Site" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+	
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <script type="text/javascript" src="script/jquery.min.js"></script>
+    <script type="text/javascript" src="script/jquery.Jcrop.js"></script>
+    <link href="Styles/jquery.Jcrop.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<form id="Form1" runat="server">
+	<div id="header">
+		<div class="row-1">
+			<div class="fleft"><a href="http://www.monitorwa.com.au/" target="_blank"><img src="images/logo.gif" width="350" /></a></div>
+		</div>
+		<div class="clear hideSkiplink">
+        	<asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+           	</asp:Menu>
+        </div>
+       	<div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+        </div>
+		<img src="images/footer_bar.jpg" />
+    </div>
+	<div id="footer">
+		<div class="logo">
+		</div>
+		<div class="text">
+        	<table style="text-align:right" >
+            <tr>
+            <td>© 2012 Monitor WA Pty Ltd</td>
+            </tr>
+            <tr>
+            <td>Enquiries to : <a href="mailto:support@monitorwa.com.au">support@monitorwa.com.au</a></td>
+            </tr>
+            <tr height="65px">
+            <td>This page was last modified on 15 Nov 2012</td>
+            </tr>
+            </table>
+        </div>
+	</div>
+</form>
+</body>
+</html>

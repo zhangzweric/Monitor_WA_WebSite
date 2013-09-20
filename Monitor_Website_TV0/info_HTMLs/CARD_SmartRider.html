@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+<meta name="description" content="SmartRider Travel Cards" />
+<meta name="keywords" content="SmartRider Travel Cards" />
+<meta name="author" content="MonitorWA" />
+<link href="../style.css" rel="stylesheet" type="text/css" /><style>._css3m{display:none}</style>
+<script type="text/javascript">
+function update(which,h){
+	window.parent.updateObjectIframe(which,h)
+}
+</script>
+</head>
+
+<body>
+<script>
+	window.onload=function(){
+		var rt=new imgRound("cardshow",268,171,350,50,330,0.003);
+		setInterval(function(){rt.roundMove()},20)
+	}
+	function imgRound(id,w,h,x,y,r,dv,rh,ah){
+		if (ah==undefined) ah=1;
+		if (rh==undefined) rh=10;
+		var dv=dv*ah; //Spin Speed
+		var pi=3.1415926575;
+		var d=pi/2;
+		var pd=Math.asin(w/2/r);
+		var smove=true;
+		var imgArr=new Array();
+		var objectId=id;
+		var o=document.getElementById(objectId);
+		o.style.position="relative";
+		var arrimg=o.getElementsByTagName("img");
+		var pn=arrimg.length; //Number of Photos
+		var ed=pi*2/pn;
+		for (n=0;n<arrimg.length;n++){
+			var lk=arrimg[n].getAttribute("link");
+			if (lk!=null) arrimg[n].setAttribute("title",lk)
+			arrimg[n].onclick=function(){
+				if (this.getAttribute("link")!=null){
+					if (this.getAttribute("target")!="_blank") window.location=(this.getAttribute("link"))
+					else window.open(this.getAttribute("link"))
+				}
+			}
+			arrimg[n].onmouseout=function(){smove=true;}
+			arrimg[n].onmouseover=function(){smove=false;}
+			arrimg[n].style.position="absolute";
+			imgArr.push(arrimg[n]);
+		}
+		
+		this.roundMove=function(){
+			for (n=0;n<=pn-1;n++){
+				var o=imgArr[n];
+				var ta=Math.sin(d+ed*n),strFilter;
+				if (ta<0) o.style.left=Math.cos(d+ed*n-pd)*r+x+"px";
+				else o.style.left=Math.cos(d+ed*n+pd)*r+x+"px";
+				o.style.top=ta*rh+rh+y+"px";
+				var zoom=Math.abs(Math.sin((d+ed*n)/2+pi/4))*0.5+0.5;
+				o.style.width=Math.abs(Math.cos(d+ed*n+pd)-Math.cos(d+ed*n-pd))*zoom*r+"px";
+				o.style.height=zoom*h+"px";
+				if (ta<0) {ta=(ta+1)*80+20;o.style.zIndex=0;}
+				else {ta=100;o.style.zIndex=1}
+				if (o.style.zIndex<=0) strFilter="FlipH(enabled:true)"
+				else strFilter="FlipH(enabled:false)";
+				strFilter=strFilter+" alpha(opacity="+ta+")";
+				o.style.opacity=ta/100;
+				o.style.filter=strFilter;
+			}
+			if (smove) d=d+dv;
+		}
+	}
+</script>
+<div id="content_body">
+	<div class="wrapper_body">
+    	<h1>SmartRider Travel Cards</h1>
+    	<p>Monitor WA has produced SmartRider student concession cards for the WA public transport system since 2005. Our knowledge of the system and the prevalence of smart cards in Western Australian schools because of the early and widespread adoption of the SmartRider system has allowed Monitor WA and the schools to leverage the presence of the cards, at greatly reduced cost to the school, into diverse other systems including <a href="SYS_AccessControl.html" onClick="update(this,1300); return false;">access control</a>, <a href="SYS_Attendance.html" onClick="update(this,1400); return false;">attendance</a>, <a href="SYS_ClubPOS.html" onClick="update(this,1800); return false;">POS</a>, <a href="SW_PaperCut.html"  onClick="update(this,850); return false;">print management</a> and more.<br /><br />For more information about SmartRider cards, or to order a card online, please refer to our <a href="../smartrider/default.html" target="_blank">SmartRider portal</a>.</p>
+        <div id="cardshow" style="width:600px;height:250px;border:border:1px solid red">
+			<img src="img/Card_Demo/16.jpg"/>
+			<img src="img/Card_Demo/17.jpg"/>
+			<img src="img/Card_Demo/18.jpg"/>
+			<img src="img/Card_Demo/19.jpg"/>
+			<img src="img/Card_Demo/20.jpg"/>
+		</div>
+    </div>
+</div>

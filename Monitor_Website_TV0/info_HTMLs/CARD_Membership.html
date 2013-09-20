@@ -1,0 +1,93 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+<meta name="description" content="membership cards" />
+<meta name="keywords" content="membership cards" />
+<meta name="author" content="MonitorWA" />
+<link href="../style.css" rel="stylesheet" type="text/css" /><style>._css3m{display:none}</style>
+<script type="text/javascript">
+function update(which,h){
+	window.parent.updateObjectIframe(which,h)
+}
+</script>
+</head>
+
+<body>
+<script>
+	window.onload=function(){
+		var rt=new imgRound("cardshow",268,171,350,50,330,0.003);
+		setInterval(function(){rt.roundMove()},20)
+	}
+	function imgRound(id,w,h,x,y,r,dv,rh,ah){
+		if (ah==undefined) ah=1;
+		if (rh==undefined) rh=10;
+		var dv=dv*ah; //Spin Speed
+		var pi=3.1415926575;
+		var d=pi/2;
+		var pd=Math.asin(w/2/r);
+		var smove=true;
+		var imgArr=new Array();
+		var objectId=id;
+		var o=document.getElementById(objectId);
+		o.style.position="relative";
+		var arrimg=o.getElementsByTagName("img");
+		var pn=arrimg.length; //Number of Photos
+		var ed=pi*2/pn;
+		for (n=0;n<arrimg.length;n++){
+			var lk=arrimg[n].getAttribute("link");
+			if (lk!=null) arrimg[n].setAttribute("title",lk)
+			arrimg[n].onclick=function(){
+				if (this.getAttribute("link")!=null){
+					if (this.getAttribute("target")!="_blank") window.location=(this.getAttribute("link"))
+					else window.open(this.getAttribute("link"))
+				}
+			}
+			arrimg[n].onmouseout=function(){smove=true;}
+			arrimg[n].onmouseover=function(){smove=false;}
+			arrimg[n].style.position="absolute";
+			imgArr.push(arrimg[n]);
+		}
+		
+		this.roundMove=function(){
+			for (n=0;n<=pn-1;n++){
+				var o=imgArr[n];
+				var ta=Math.sin(d+ed*n),strFilter;
+				if (ta<0) o.style.left=Math.cos(d+ed*n-pd)*r+x+"px";
+				else o.style.left=Math.cos(d+ed*n+pd)*r+x+"px";
+				o.style.top=ta*rh+rh+y+"px";
+				var zoom=Math.abs(Math.sin((d+ed*n)/2+pi/4))*0.5+0.5;
+				o.style.width=Math.abs(Math.cos(d+ed*n+pd)-Math.cos(d+ed*n-pd))*zoom*r+"px";
+				o.style.height=zoom*h+"px";
+				if (ta<0) {ta=(ta+1)*80+20;o.style.zIndex=0;}
+				else {ta=100;o.style.zIndex=1}
+				if (o.style.zIndex<=0) strFilter="FlipH(enabled:true)"
+				else strFilter="FlipH(enabled:false)";
+				strFilter=strFilter+" alpha(opacity="+ta+")";
+				o.style.opacity=ta/100;
+				o.style.filter=strFilter;
+			}
+			if (smove) d=d+dv;
+		}
+	}
+</script>
+
+<div id="content_body">
+	<div class="wrapper_body">
+    	<h1>Membership Cards</h1>
+    	<p>Plastic membership cards offer a cheap, attractive and effective way to promote your organization. If you don’t need the electronic integration offered by loyalty and secure access cards then membership cards are the best solution for your business.</p>
+		<div class="hding"><h2><font color="#FFFFFF">Custom Designs</font></h2></div>
+        	<p>Imagination is the only limit to the designs that may be printed on your cards! The design may include any combination of background and personalized information including the company logo, corporate colours, card holder photo, names, dates, and more. Other features such as holograms and signature strips may also be provided.</p>
+		<div class="hding"><h2><font color="#FFFFFF">Choosing the Right Technology</font></h2></div>
+        	<p>Choosing the right technology for producing your cards is important! Smaller batches (fewer than 1000 cards) are normally produced on our in-house card printers and have an excellent quality for printed text, photos and most logos. For superior quality, including higher resolution printing but particularly if you require broad bands of a single color, then screen printing is the recommended if the order is of sufficient size; for larger orders screen printing is exceptionally cost-effective but for smaller orders the setup cost is prohibitive. A combination of screen printing and heat-transfer printing is also common, with the screen printing used to produce the card background at a very high quality and heat transfer being used to add personalized details such as the patron name and photo to the card. Our sales team can ease the burden of choice by recommending the best technology to suit your situation.</p>
+		<div class="hding"><h2><font color="#FFFFFF">Order Online or From Your PC</font></h2></div>
+        	<p>The Monitor WA <a href="https://idcards.monitorwa.com.au" target="_blank">IDCards portal</a> offers a secure and convenient method for ordering membership cards online. Please contact <a href="mailto:support@monitorwa.com.au">support@monitorwa.com.au</a> if you wish to create an online account. If you prefer a desktop solution then the <a href="SW_IDCapture.html" onClick="update(this,990); return false;">IDCapture</a> software is provided free of charge for Monitor WA customers to order cards.</p>
+        <div id="cardshow" style="width:600px;height:250px;border:border:1px solid red">
+			<img src="img/Card_Demo/1.jpg"/>
+			<img src="img/Card_Demo/2.jpg"/>
+			<img src="img/Card_Demo/3.jpg"/>
+			<img src="img/Card_Demo/4.jpg"/>
+			<img src="img/Card_Demo/5.jpg"/>
+		</div>
+    </div>
+</div>

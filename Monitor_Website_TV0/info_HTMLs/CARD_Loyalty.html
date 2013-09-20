@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+<meta name="description" content="Loyalty Cards" />
+<meta name="keywords" content="Loyalty Cards" />
+<meta name="author" content="MonitorWA" />
+<link href="../style.css" rel="stylesheet" type="text/css" /><style>._css3m{display:none}</style>
+<script type="text/javascript">
+function update(which,h){
+	window.parent.updateObjectIframe(which,h)
+}
+</script>
+</head>
+
+<body>
+<script>
+	window.onload=function(){
+		var rt=new imgRound("cardshow",268,171,350,50,330,0.003);
+		setInterval(function(){rt.roundMove()},20)
+	}
+	function imgRound(id,w,h,x,y,r,dv,rh,ah){
+		if (ah==undefined) ah=1;
+		if (rh==undefined) rh=10;
+		var dv=dv*ah; //Spin Speed
+		var pi=3.1415926575;
+		var d=pi/2;
+		var pd=Math.asin(w/2/r);
+		var smove=true;
+		var imgArr=new Array();
+		var objectId=id;
+		var o=document.getElementById(objectId);
+		o.style.position="relative";
+		var arrimg=o.getElementsByTagName("img");
+		var pn=arrimg.length; //Number of Photos
+		var ed=pi*2/pn;
+		for (n=0;n<arrimg.length;n++){
+			var lk=arrimg[n].getAttribute("link");
+			if (lk!=null) arrimg[n].setAttribute("title",lk)
+			arrimg[n].onclick=function(){
+				if (this.getAttribute("link")!=null){
+					if (this.getAttribute("target")!="_blank") window.location=(this.getAttribute("link"))
+					else window.open(this.getAttribute("link"))
+				}
+			}
+			arrimg[n].onmouseout=function(){smove=true;}
+			arrimg[n].onmouseover=function(){smove=false;}
+			arrimg[n].style.position="absolute";
+			imgArr.push(arrimg[n]);
+		}
+		
+		this.roundMove=function(){
+			for (n=0;n<=pn-1;n++){
+				var o=imgArr[n];
+				var ta=Math.sin(d+ed*n),strFilter;
+				if (ta<0) o.style.left=Math.cos(d+ed*n-pd)*r+x+"px";
+				else o.style.left=Math.cos(d+ed*n+pd)*r+x+"px";
+				o.style.top=ta*rh+rh+y+"px";
+				var zoom=Math.abs(Math.sin((d+ed*n)/2+pi/4))*0.5+0.5;
+				o.style.width=Math.abs(Math.cos(d+ed*n+pd)-Math.cos(d+ed*n-pd))*zoom*r+"px";
+				o.style.height=zoom*h+"px";
+				if (ta<0) {ta=(ta+1)*80+20;o.style.zIndex=0;}
+				else {ta=100;o.style.zIndex=1}
+				if (o.style.zIndex<=0) strFilter="FlipH(enabled:true)"
+				else strFilter="FlipH(enabled:false)";
+				strFilter=strFilter+" alpha(opacity="+ta+")";
+				o.style.opacity=ta/100;
+				o.style.filter=strFilter;
+			}
+			if (smove) d=d+dv;
+		}
+	}
+</script>
+
+<div id="content_body">
+	<div class="wrapper_body">
+    	<h1>Loyalty Cards</h1>
+    	<p>Loyalty cards are a great way to build brand recognition and reward your customers for their continued custom. Similar to membership cards, loyalty cards also include a method to recognize the card electronically, such as a chip in a MiFare or other smart card, a magnetic strip or a barcode.<br /><br />The ability to recognize a loyalty card electronically makes them suitable for use with a myriad of systems including <a href="SYS_AccessControl.html" onClick="update(this,1300); return false;">access control</a>, <a href="SYS_Attendance.html" onClick="update(this,1400); return false;">attendance</a>, <a href="SYS_ClubPOS.html" onClick="update(this,1800); return false;">POS</a>, <a href="SW_PaperCut.html" onClick="update(this,850); return false;">print management</a> and more. The friendly sales staff at Monitor WA are always happy to discuss the benefits or loyalty cards, and our experienced technicians are ready, willing and eager to help you integrate those cards into your systems. Give us a call today and find out how we can help bring your business into the information age!</p>
+		<div class="hding1"><h2><font color="#FFFFFF">MiFare, 125kHz (HID), Barcodes, Magnetic Strips & More</font></h2></div>
+        	<p>Monitor WA is able to produce smart cards compatible with MiFare, 125kHz and other common formats. Whether you have an existing system or are planning a new project, we can help determine the type of cards required for your environment.</p>
+		<div class="hding"><h2><font color="#FFFFFF">Choosing the Right Technology</font></h2></div>
+        	<p>Choosing the right technology is important to allow the cards to integrate into your systems – for instance you might require cards with a MiFare chip to be compatible with your access control system but also need a barcode for use with your library system.</p>
+		<div class="hding"><h2><font color="#FFFFFF">Order Online or From Your PC</font></h2></div>
+        	<p>The Monitor WA <a href="https://idcards.monitorwa.com.au" target="_blank">IDCards portal</a> offers a secure and convenient method for ordering membership cards online. Please contact <a href="mailto:support@monitorwa.com.au">support@monitorwa.com.au</a> if you wish to create an online account. If you prefer a desktop solution then the <a href="SW_IDCapture.html" onClick="update(this,990); return false;">IDCapture</a> software is provided free of charge for Monitor WA customers to order cards.</p>
+        <div id="cardshow" style="width:600px;height:250px;border:border:none">
+			<img src="img/Card_Demo/6.jpg"/>
+			<img src="img/Card_Demo/7.jpg"/>
+			<img src="img/Card_Demo/8.jpg"/>
+			<img src="img/Card_Demo/9.jpg"/>
+			<img src="img/Card_Demo/10.jpg"/>
+		</div>
+    </div>
+</div>
